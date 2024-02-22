@@ -4,7 +4,7 @@ Synthwave '84-inspired theme.
 
 Tmux theme paired for my [synthweave](https://github.com/samharju/synthweave.nvim)-theme for neovim, because I happen to really like the colors.
 
-![image](https://github.com/samharju/tmux-synthweave-theme/assets/35364923/f13775c1-56ff-4da3-976b-4218c5c035d7)
+![tmux](https://github.com/samharju/tmux-synthweave-theme/assets/35364923/a25a9ff8-6aca-40cd-8dca-8b69bb368a78)
 
 # Install
 
