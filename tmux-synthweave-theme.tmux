@@ -69,7 +69,6 @@ prefix_() {
 set "clock-mode-colour" "$green_bright"
 set "clock-mode-style" 24
 
-set "status" "on"
 set "status-style" "fg=$powder_blue,bg=$raisin,none"
 set "status-justify" "left"
 
