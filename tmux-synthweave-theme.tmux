@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 pink="#ff7edb"
 cyan="#36f9f6"
@@ -96,14 +96,21 @@ set "window-style" "default"
 set "window-active-style" "default"
 
 # window bar
-window_title="#I  #W"
-set "window-status-format" "#[fg=$powder_blue bg=$raisin none] $window_title "
-set "window-status-current-format" "$(bubble $pink $raisin "$window_title")"
+window_status="$(get @synthweave_window_status '#I #{sep} #W' )"
+window_status="${window_status//\#\{sep\}/}"
+set "window-status-format" "#[fg=$powder_blue bg=$raisin none] $window_status "
+
+window_status_current="$(get @synthweave_window_status_current "#I #{sep} #W" )"
+window_status_current="${window_status_current//\#\{sep\}/}"
+set "window-status-current-format" "$(bubble $pink $raisin "$window_status_current")"
 
 # left status
 set "status-left-length" "100"
 set "status-left-style" ""
-set "status-left" "#[fg=$raisin bg=$green_bright bold] #S #[fg=$green_bright bg=$raisin] $(prefix_)"
+
+status_left="$(get @synthweave_status_left ' #S')"
+status_left="${status_left//\#\{sep\}/}"
+set "status-left" "#[fg=$raisin bg=$green_bright bold]$status_left#[fg=$green_bright bg=$raisin] $(prefix_)"
 
 # right status
 set "status-right-length" "100"
@@ -116,5 +123,8 @@ if [ -n "$widgets" ]; then
 fi
 
 set "status-right-style" ""
-set "status-right" "${widgets}#[fg=$raisin]#[fg=$powder_blue bg=$raisin none]${time_format}  ${date_format} $(l_cheek $green_bright $raisin)#[fg=$raisin bg=$green_bright] @#h "
+status_right="$(get @synthweave_status_right '@#h ')"
+status_right="${status_right//\#\{sep\}/}"
+
+set "status-right" "${widgets}#[fg=$raisin]#[fg=$powder_blue bg=$raisin none]${time_format}  ${date_format} $(l_cheek $green_bright $raisin)#[fg=$raisin bg=$green_bright]$status_right"
 

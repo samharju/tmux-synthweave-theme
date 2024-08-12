@@ -17,11 +17,15 @@ set -g @plugin 'samharju/tmux-synthweave-theme'
 Fiddle with settings before calling tpm, these are defaults:
 
 ```
-set -g @synthweave_widgets ""
-set -g @synthweave_copy_text "COPY"
-set -g @synthweave_time_format "%T"
-set -g @synthweave_date_format "%d-%m-%Y"
+set -g @synthweave_widgets ''
+set -g @synthweave_copy_text 'COPY'
+set -g @synthweave_time_format '%T'
+set -g @synthweave_date_format '%d-%m-%Y'
 set -g @synthweave_prefix_text <prefix>  # default is to show prefix, C-b etc
+set -g @synthweave_status_left ' #S'
+set -g @synthweave_status_right '@#h '
+set -g @synthweave_window_status '#I #{sep} #W'
+set -g @synthweave_window_status_current '#I #{sep} #W'
 ```
 
 Above screenshot uses tmux-cpu widget:
