@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+CURRENT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+
 pink="#ff7edb"
 cyan="#36f9f6"
 blue_bright="#2ee2fa"
@@ -7,6 +9,12 @@ yellow="#fede5d"
 green_bright="#72f1b8"
 powder_blue="#a2c7e5"
 raisin="#262335"
+
+sep_left=""
+sep_right=""
+session_bar() {
+    echo "#($CURRENT_DIR/scripts/session-bar.sh)"
+}
 
 set() {
     local option=$1
@@ -96,35 +104,37 @@ set "window-style" "default"
 set "window-active-style" "default"
 
 # window bar
-window_status="$(get @synthweave_window_status '#I #{sep} #W' )"
-window_status="${window_status//\#\{sep\}/}"
+window_status="$(get @synthweave_window_status '#I#{sep} #W' )"
+window_status="${window_status//\#\{sep\}/$sep_left}"
 set "window-status-format" "#[fg=$powder_blue bg=$raisin none] $window_status "
 
-window_status_current="$(get @synthweave_window_status_current "#I #{sep} #W" )"
-window_status_current="${window_status_current//\#\{sep\}/}"
+window_status_current="$(get @synthweave_window_status_current "#I#{sep} #W" )"
+window_status_current="${window_status_current//\#\{sep\}/$sep_left}"
 set "window-status-current-format" "$(bubble $pink $raisin "$window_status_current")"
 
 # left status
 set "status-left-length" "100"
 set "status-left-style" ""
 
-status_left="$(get @synthweave_status_left ' #S')"
-status_left="${status_left//\#\{sep\}/}"
-set "status-left" "#[fg=$raisin bg=$green_bright bold]$status_left#[fg=$green_bright bg=$raisin] $(prefix_)"
+status_left="$(get @synthweave_status_left " #{session_bar}#{sep} #S")"
+status_left="${status_left//\#\{sep\}/$sep_left}"
+status_left="${status_left//\#\{session_bar\}/$(session_bar)}"
+set "status-left" "#[fg=$raisin bg=$green_bright bold]${status_left}$(r_cheek $green_bright $raisin) $(prefix_)"
 
 # right status
-set "status-right-length" "100"
 time_format="$(get @synthweave_time_format %T)"
 date_format="$(get @synthweave_date_format %d-%m-%Y)"
 widgets="$(get @synthweave_widgets)"
 
 if [ -n "$widgets" ]; then
-    widgets="${widgets//\#\{sep\}/}"
+    widgets="${widgets//\#\{sep\}/$sep_right}"
+    widgets="${widgets//\#\{session_bar\}/$(session_bar)}"
 fi
 
+set "status-right-length" "100"
 set "status-right-style" ""
 status_right="$(get @synthweave_status_right '@#h ')"
-status_right="${status_right//\#\{sep\}/}"
-
-set "status-right" "${widgets}#[fg=$raisin]#[fg=$powder_blue bg=$raisin none]${time_format}  ${date_format} $(l_cheek $green_bright $raisin)#[fg=$raisin bg=$green_bright]$status_right"
+status_right="${status_right//\#\{sep\}/$sep_right}"
+status_right="${status_right//\#\{session_bar\}/$(session_bar)}"
+set "status-right" "${widgets}#[fg=$powder_blue bg=$raisin none] ${time_format} $sep_right ${date_format} $(l_cheek $green_bright $raisin)#[fg=$raisin bg=$green_bright]$status_right"
 
