@@ -8,29 +8,51 @@ Tmux theme paired for my [synthweave](https://github.com/samharju/synthweave.nvi
 
 # Install
 
-Install with [Tmux Plugin Manager](https://github.com/tmux-plugins/tpm):
+## TPM
+
+Install with [Tmux Plugin Manager](https://github.com/tmux-plugins/tpm), add to `.tmux.conf`:
 
 ```
 set -g @plugin 'samharju/tmux-synthweave-theme'
 ```
 
-Fiddle with settings before calling tpm, these are defaults:
+## Manual
+
+Clone project:
+
+```
+$ git clone https://github.com/samharju/tmux-synthweave-theme.git ~/some/path
+```
+
+Execute plugin in your `.tmux.conf`:
+
+```
+run '~/some/path/tmux-synthweave-theme.tmux'
+```
+
+# Settings
+
+Fiddle with settings, these are defaults:
 
 ```
 set -g @synthweave_widgets ''
 set -g @synthweave_copy_text 'COPY'
 set -g @synthweave_time_format '%T'
 set -g @synthweave_date_format '%d-%m-%Y'
-set -g @synthweave_prefix_text <prefix>  # default is to show prefix, C-b etc
-set -g @synthweave_status_left ' #S'
+set -g @synthweave_prefix_text <prefix>  # default is to show what is returned by 'tmux show-option -qgv prefix'
+set -g @synthweave_status_left ' #{session_bar}#{sep} #S'
 set -g @synthweave_status_right '@#h '
-set -g @synthweave_window_status '#I #{sep} #W'
-set -g @synthweave_window_status_current '#I #{sep} #W'
+set -g @synthweave_window_status '#I#{sep} #W'
+set -g @synthweave_window_status_current '#I#{sep} #W'
 ```
 
-Above screenshot uses tmux-cpu widget:
+Above screenshot uses tmux-cpu widget, with this config:
 
 ```
+set -g @cpu_medium_thresh "20"
+set -g @cpu_high_thresh "40"
+set -g @ram_medium_thresh "10"
+set -g @ram_high_thresh "40"
 set -g @synthweave_widgets 'C #{cpu_fg_color}#{cpu_percentage}#[default] M #{ram_fg_color}#{ram_percentage}#[default] #{sep}'
 
 set -g @plugin 'tmux-plugins/tpm'
