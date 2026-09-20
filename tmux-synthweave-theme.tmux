@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-CURRENT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+CURRENT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 pink="#ff7edb"
 cyan="#36f9f6"
@@ -21,7 +21,6 @@ set() {
     local value=$2
     tmux set-option -g "$option" "$value"
 }
-
 
 setw() {
     local option=$1
@@ -82,14 +81,13 @@ set "status-justify" "left"
 
 # message and cmd promt style
 set "message-style" "fg=$blue_bright,bg=$raisin,none"
-set "message-command-style" "fg=$blue_bright$,bg=$raisin,none"
+set "message-command-style" "fg=$blue_bright,bg=$raisin,none"
 
 set "mode-style" "fg=$cyan,bg=$raisin,italics"
 
 # session listing
 set "display-panes-active-colour" "$yellow"
 set "display-panes-colour" "$powder_blue"
-
 
 # window options
 setw "pane-border-style" "fg=$raisin"
@@ -104,11 +102,11 @@ set "window-style" "default"
 set "window-active-style" "default"
 
 # window bar
-window_status="$(get @synthweave_window_status '#I#{sep} #W' )"
+window_status="$(get @synthweave_window_status '#I#{sep} #W')"
 window_status="${window_status//\#\{sep\}/$sep_left}"
 set "window-status-format" "#[fg=$powder_blue bg=$raisin none] $window_status "
 
-window_status_current="$(get @synthweave_window_status_current "#I#{sep} #W" )"
+window_status_current="$(get @synthweave_window_status_current "#I#{sep} #W")"
 window_status_current="${window_status_current//\#\{sep\}/$sep_left}"
 set "window-status-current-format" "$(bubble $pink $raisin "$window_status_current")"
 
@@ -137,4 +135,3 @@ status_right="$(get @synthweave_status_right '@#h ')"
 status_right="${status_right//\#\{sep\}/$sep_right}"
 status_right="${status_right//\#\{session_bar\}/$(session_bar)}"
 set "status-right" "${widgets}#[fg=$powder_blue bg=$raisin none] ${time_format} $sep_right ${date_format} $(l_cheek $green_bright $raisin)#[fg=$raisin bg=$green_bright]$status_right"
-
