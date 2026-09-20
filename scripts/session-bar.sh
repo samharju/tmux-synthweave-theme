@@ -1,14 +1,11 @@
 #!/usr/bin/env bash
 
-sessions=$(tmux ls -F '#S')
-current=$(tmux list-panes -t "$TMUX_PANE" -F '#{session_name}' | head -1)
+current="$1"
 
-i=0
-for session in $sessions; do
+while IFS= read -r session; do
     if [ "$session" = "$current" ]; then
-        echo -n "●"
+        printf "●"
     else
-        echo -n "◌"
+        printf "◌"
     fi
-    i=$((i+1))
-done
+done < <(tmux list-sessions -F '#{session_id}')

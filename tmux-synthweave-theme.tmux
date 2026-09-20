@@ -13,7 +13,7 @@ raisin="#262335"
 sep_left=""
 sep_right=""
 session_bar() {
-    echo "#($CURRENT_DIR/scripts/session-bar.sh)"
+    echo "#($CURRENT_DIR/scripts/session-bar.sh '#{session_id}')"
 }
 
 set() {
